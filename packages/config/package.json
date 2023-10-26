@@ -1,0 +1,15 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "tailwind.config.js",
+    "postcss.config.js"
+  ],
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
