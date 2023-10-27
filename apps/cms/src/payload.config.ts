@@ -21,6 +21,7 @@ export default buildConfig({
   globals: [Navigation],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    declare: false
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
