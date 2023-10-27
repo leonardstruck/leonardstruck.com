@@ -7,7 +7,8 @@
     },
     "build": {
       "dependsOn": ["^build", "types"],
-      "outputs": [".next/**", "!.next/cache/**", "build", "dist"]
+      "env": ["PAYLOAD_*"],
+      "outputs": [".next/**", "!.next/cache/**", "build/**", "dist/**"]
     },
     "lint": {},
     "dev": {
