@@ -13,12 +13,17 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {};
+  globals: {
+    navigation: Navigation;
+  };
 }
 export interface User {
   id: number;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean;
+  apiKey?: string;
+  apiKeyIndex?: string;
   email: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
@@ -62,6 +67,20 @@ export interface PayloadMigration {
   batch?: number;
   updatedAt: string;
   createdAt: string;
+}
+export interface Navigation {
+  id: number;
+  links?: {
+    link: {
+      label: string;
+      type?: 'internal' | 'external';
+      internal: number | Page;
+      external: string;
+    };
+    id?: string;
+  }[];
+  updatedAt?: string;
+  createdAt?: string;
 }
 
 
