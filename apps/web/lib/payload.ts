@@ -12,6 +12,20 @@ interface PayloadArgs {
     options?: Omit<RequestInit, "body" | "method" | "headers">;
 }
 
+export interface PaginatedDocs<T = unknown> {
+    docs: T[]
+    totalDocs: number
+    limit: number
+    totalPages: number
+    page?: number | undefined
+    pagingCounter: number
+    hasPrevPage: boolean
+    hasNextPage: boolean
+    prevPage?: number | null | undefined
+    nextPage?: number | null | undefined
+}
+
+
 const payload = async<T>({ endpoint, query, method = "GET", next, body, headers, options }: PayloadArgs): Promise<T> => {
     const queryparams = query ? `?${qs.stringify(query)}` : "";
     const url = `${env.PAYLOAD_URL}/api/${endpoint}${queryparams}`;
@@ -40,3 +54,4 @@ export default payload;
 export const getAdminAuthHeaders = (): Record<string, string> => ({
     "Authorization": `users API-Key ${env.PAYLOAD_TOKEN}`,
 });
+
