@@ -70,7 +70,18 @@ importers:
         specifier: ^4.5.3
         version: 4.9.5
 
-  packages/config: {}
+  packages/config:
+    dependencies:
+      tailwind-plugin-gradient-mask:
+        specifier: workspace:*
+        version: link:../tailwind-plugin-gradient-mask
+    devDependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@3.3.5)
+      tailwindcss:
+        specifier: ^3.3.5
+        version: 3.3.5
 
   packages/eslint-config-custom:
     devDependencies:
@@ -84,9 +95,22 @@ importers:
         specifier: ^4.5.3
         version: 4.9.5
 
+  packages/tailwind-plugin-gradient-mask:
+    devDependencies:
+      tailwindcss:
+        specifier: ^3.3.5
+        version: 3.3.5
+
   packages/tsconfig: {}
 
   packages/ui:
+    dependencies:
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
     devDependencies:
       '@turbo/gen':
         specifier: ^1.10.12
@@ -100,12 +124,18 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.0
         version: 18.2.3
+      config:
+        specifier: workspace:*
+        version: link:../config
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      tailwindcss:
+        specifier: ^3.3.5
+        version: 3.3.5
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -605,6 +635,18 @@ packages:
     dependencies:
       tslib: 2.5.0
     dev: false
+
+  /@tailwindcss/typography@0.5.10(tailwindcss@3.3.5):
+    resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.3.5
+    dev: true
 
   /@tootallnate/quickjs-emscripten@0.23.0:
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -1415,6 +1457,11 @@ packages:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
     dev: true
+
+  /clsx@2.0.0:
+    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -3230,8 +3277,16 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash.castarray@4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: true
+
   /lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    dev: true
+
+  /lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
 
   /lodash.merge@4.6.2:
@@ -3821,6 +3876,14 @@ packages:
     dependencies:
       postcss: 8.4.31
       postcss-selector-parser: 6.0.13
+    dev: true
+
+  /postcss-selector-parser@6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
     dev: true
 
   /postcss-selector-parser@6.0.13:
@@ -4454,6 +4517,10 @@ packages:
       '@pkgr/utils': 2.4.0
       tslib: 2.5.0
     dev: true
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
+    dev: false
 
   /tailwindcss@3.3.5:
     resolution: {integrity: sha512-5SEZU4J7pxZgSkv7FP1zY8i2TIAOooNZ1e/OGtxIEv6GltpoiXUqWvLy89+a10qYTB1N5Ifkuw9lqQkN9sscvA==}

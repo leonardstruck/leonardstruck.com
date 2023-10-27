@@ -1,0 +1,29 @@
+import { cn } from "../cn";
+
+export interface NavigationLink {
+    href: string;
+    text: string;
+    active?: boolean;
+};
+
+interface NavigationProps {
+    links: NavigationLink[];
+    asAnchor?: React.ElementType;
+};
+
+
+export function Navigation({ links, asAnchor }: NavigationProps): JSX.Element {
+    const Anchor = asAnchor || "a";
+
+    return (
+        <div className="w-full bg-gradient-to-b from-neutral-950 via-neutral-950/80 to-transparent before:backdrop-blur-sm before:-z-10 before:absolute before:inset-0 before:gradient-mask-b-0 sticky top-0">
+            <nav className="container mx-auto flex gap-4">
+                {links.map((link) => (
+                    <Anchor className={cn("py-4 font-black font-mono transition-transform", link.active ? "text-neutral-500 cursor-default" : "hover:-translate-y-0.5 hover:underline underline-offset-4 decoration-4")} href={link.href} key={link.href}>
+                        {link.text}
+                    </Anchor>
+                ))}
+            </nav>
+        </div>
+    );
+}

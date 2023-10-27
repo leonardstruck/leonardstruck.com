@@ -11,5 +11,12 @@
   "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.5"
+  },
+  "dependencies": {
+    "tailwind-plugin-gradient-mask": "workspace:*"
+  }
 }
