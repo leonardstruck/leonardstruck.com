@@ -24,7 +24,8 @@
     "dotenv": "^8.2.0",
     "drizzle-orm": "0.28.5",
     "express": "^4.17.1",
-    "payload": "^2.0.0"
+    "payload": "^2.0.0",
+    "config": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",

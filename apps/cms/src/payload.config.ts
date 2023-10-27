@@ -11,10 +11,23 @@ import Users from './collections/Users'
 import Pages from './collections/Pages'
 import Navigation from './globals/Navigation'
 
+const revalidatePath = path.resolve(__dirname, 'lib/revalidate')
+const mockModulePath = path.resolve(__dirname, 'lib/mock')
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
+    webpack: (config) => ({
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          [revalidatePath]: mockModulePath,
+        }
+      }
+    }),
   },
   editor,
   collections: [Users, Pages],
