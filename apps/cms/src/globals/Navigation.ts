@@ -1,7 +1,6 @@
 import type { GlobalConfig } from "payload/types";
 import Link from "../fields/Link";
 import revalidateGlobal from "../hooks/revalidate";
-import cache from "config/cache";
 
 export const slug = "navigation";
 

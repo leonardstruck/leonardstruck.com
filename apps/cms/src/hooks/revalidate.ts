@@ -1,6 +1,6 @@
 import type { GlobalAfterChangeHook } from "payload/types";
 import revalidate from "../lib/revalidate";
-import cache from "config/cache";
+import cache from "../cache";
 
 const revalidateGlobal: (slug: keyof typeof cache.global) => GlobalAfterChangeHook = (slug) => async ({ req }) => {
     if (req) {
