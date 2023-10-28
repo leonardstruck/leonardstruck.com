@@ -1,6 +1,6 @@
 import { GlobalConfig } from "payload/types";
 import Pages from "../collections/Pages";
-import revalidateGlobal from "../hooks/revalidate";
+import revalidateGlobal from "../hooks/revalidate/revalidateGlobal";
 
 export const slug = "homepage";
 
@@ -16,7 +16,7 @@ const Homepage: GlobalConfig = {
         return true;
     }),
     hooks: {
-        afterChange: [revalidateGlobal(slug)]
+        afterChange: [revalidateGlobal]
     }
 }
 

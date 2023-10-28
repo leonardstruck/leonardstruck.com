@@ -1,6 +1,6 @@
 import type { GlobalConfig } from "payload/types";
 import Link from "../fields/Link";
-import revalidateGlobal from "../hooks/revalidate";
+import revalidateGlobal from "../hooks/revalidate/revalidateGlobal";
 
 export const slug = "navigation";
 
@@ -25,7 +25,7 @@ const Navigation: GlobalConfig = {
         }
     ],
     hooks: {
-        afterChange: [revalidateGlobal(slug)]
+        afterChange: [revalidateGlobal]
     }
 }
 

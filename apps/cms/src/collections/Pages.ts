@@ -1,4 +1,5 @@
 import { CollectionConfig } from "payload/types";
+import { revalidatePage } from "../hooks/revalidate/revalidatePage";
 
 export const slug = "pages";
 
@@ -23,7 +24,11 @@ const Pages: CollectionConfig = {
             name: "content",
             type: "richText"
         }
-    ]
+    ],
+    hooks: {
+        afterChange: [revalidatePage],
+        afterDelete: [revalidatePage]
+    }
 }
 
 export default Pages;

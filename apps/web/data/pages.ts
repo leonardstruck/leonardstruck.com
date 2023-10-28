@@ -26,3 +26,22 @@ export const getPages = async (): Promise<Page[]> => {
     return pages.docs;
 }
 
+export const getPageBySlug = async (slug: string): Promise<Page | null> => {
+    const page = await payload<PaginatedDocs<Page>>({
+        endpoint: `pages`,
+        query: {
+            where: {
+                slug: {
+                    equals: slug
+                }
+            }
+        },
+        headers: getAdminAuthHeaders(),
+        next: {
+            tags: [cache.collection.page.generateCacheKeyFromSlug(slug)]
+        }
+    });
+
+    return page.docs[0] || null;
+}
+

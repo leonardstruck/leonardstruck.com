@@ -1,4 +1,7 @@
-import { getPages } from "../../data/pages";
+import { notFound } from "next/navigation";
+import type { BaseNode } from "ui/components/serializer";
+import { getPageBySlug, getPages } from "../../data/pages";
+import { RichText } from "../../components/rich-text";
 
 interface PageProps {
   params: {
@@ -6,13 +9,18 @@ interface PageProps {
   }
 };
 
-export default function Page({ params: { slug } }: PageProps): JSX.Element {
+export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
+  const page = await getPageBySlug(slug);
+  if (!page) {
+    notFound();
+  }
+
+  const content = (page as { content?: { root?: BaseNode } }).content?.root;
   return (
-    <main className="h-[2000px]">
-      <h1>{slug}</h1>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, ipsam culpa ipsa hic veniam aliquam nihil labore debitis repellat facere excepturi repellendus architecto earum, velit dolor numquam soluta corporis sed.
-    </main>
-  );
+    <div className="prose prose-invert">
+      {content ? <RichText node={content} /> : null}
+    </div>
+  )
 }
 
 export async function generateStaticParams(): Promise<PageProps[]> {

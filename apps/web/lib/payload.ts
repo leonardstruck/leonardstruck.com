@@ -1,10 +1,10 @@
 import "server-only";
-import qs, { type ParsedUrlQueryInput } from "node:querystring";
+import { stringify } from "qs";
 import env from "./env";
 
 interface PayloadArgs {
     endpoint: string;
-    query?: ParsedUrlQueryInput;
+    query?: object,
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
     next?: NextFetchRequestConfig;
     body?: unknown;
@@ -27,7 +27,7 @@ export interface PaginatedDocs<T = unknown> {
 
 
 const payload = async<T>({ endpoint, query, method = "GET", next, body, headers, options }: PayloadArgs): Promise<T> => {
-    const queryparams = query ? `?${qs.stringify(query)}` : "";
+    const queryparams = query ? stringify(query, { addQueryPrefix: true }) : "";
     const url = `${env.PAYLOAD_URL}/api/${endpoint}${queryparams}`;
 
     const response = await fetch(url, {

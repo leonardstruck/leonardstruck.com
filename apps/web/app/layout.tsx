@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono as Mono } from "next/font/google";
+import { GeistSans, GeistMono } from 'geist/font'
 import "ui/tailwind.css"
 import "./globals.css"
 import { Navigation } from "../components/navigation";
 import { getNavLinks } from "../data/navigation";
 
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const jetBrainsMono = Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetBrainsMono.variable}`}>
+      <body className={`${GeistMono.variable} ${GeistSans.variable}`}>
         <Navigation links={links} />
         <main className="container">
           {children}
