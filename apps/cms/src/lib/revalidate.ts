@@ -15,12 +15,11 @@ const revalidate = async (config: revalidateObj) => {
                 throw new Error("Failed to revalidate");
             }
         })
-        .catch(err => {
-            throw new Error(err);
-        })
     );
 
-    return await Promise.all(promises);
+    return await Promise.all(promises).catch(err => {
+        throw new Error("Failed to revalidate");
+    })
 }
 
 export default revalidate;
