@@ -8,7 +8,7 @@ interface RichTextProps {
 
 export function RichText(props: RichTextProps): JSX.Element {
     return (
-        <div className="prose prose-invert prose-headings:font-mono">
+        <div className="prose prose-invert prose-neutral prose-headings:font-mono">
             <Serializer node={props.node as Nodes} parsers={parsers} />
         </div>
     );
