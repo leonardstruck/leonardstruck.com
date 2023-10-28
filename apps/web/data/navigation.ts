@@ -24,10 +24,9 @@ export const getNavLinks = async (): Promise<NavLink[]> => {
 
     if (!nav.links) return [];
 
-    const links: NavLink[] = nav.links.map(link =>
+    const links = nav.links.map(link =>
         /* eslint-disable -- this is a pattern matching library */
         match(link.link)
-            .returnType<NavLink | null>()
             .with({ type: "external" }, ({ external, label }) => ({ href: external, label, external: true }))
             .with({ type: "internal", internal: { slug: P.string } }, ({ internal, label }) => ({ href: `/${internal.slug}`, label }))
             .otherwise(({ label }) => {
