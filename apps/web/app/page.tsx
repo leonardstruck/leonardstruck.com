@@ -4,10 +4,10 @@ import { getHomepage } from "../data/pages"
 
 export default async function Page(): Promise<JSX.Element> {
     const homepage = await getHomepage();
-    const content = (homepage.content as unknown as Record<string, unknown>).root as BaseNode;
+    const content = (homepage as { content?: { root?: BaseNode } }).content?.root;
     return (
         <div className="prose prose-invert">
-            {homepage.content ? <RichText node={content} /> : null}
+            {content ? <RichText node={content} /> : null}
         </div>
     )
 }

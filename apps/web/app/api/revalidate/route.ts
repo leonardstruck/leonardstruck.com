@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { ZodError, z } from "zod";
+import logger from "logger";
 
 // zod schema from revalidateObj
 const revalidateSchema = z.object({
@@ -24,6 +25,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
                 revalidatePath(path);
             });
         }
+
+        logger.info(body, "Revalidated");
 
         return NextResponse.json({
             revalidated: true,

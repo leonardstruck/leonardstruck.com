@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono as Mono } from "next/font/google";
 import "ui/tailwind.css"
 import "./globals.css"
-import type { NavigationLink } from "ui/components/navigation";
 import { Navigation } from "../components/navigation";
-import { getNavigation } from "../data/navigation";
+import { getNavLinks } from "../data/navigation";
 
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -22,11 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }): Promise<JSX.Element> {
-  const navigationData = await getNavigation();
-  const links: NavigationLink[] = navigationData.links?.map((link) => ({
-    text: link.link.label,
-    href: "/"
-  })) || [];
+  const links = await getNavLinks();
 
 
   return (

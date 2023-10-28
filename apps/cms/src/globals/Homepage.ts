@@ -6,7 +6,15 @@ export const slug = "homepage";
 
 const Homepage: GlobalConfig = {
     slug,
-    fields: Pages.fields,
+    fields: Pages.fields.filter((field) => {
+        if ("name" in field) {
+            if (field.name == "slug") {
+                return false;
+            }
+        }
+
+        return true;
+    }),
     hooks: {
         afterChange: [revalidateGlobal(slug)]
     }

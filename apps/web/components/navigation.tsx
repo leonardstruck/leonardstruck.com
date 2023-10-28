@@ -9,17 +9,28 @@ export interface NavigationProps {
     links: NavigationLink[];
 }
 
+
+function Anchor(props: { href: string; children: React.ReactNode, link: NavigationLink }): JSX.Element {
+    return <Link {...props} target={props.link.external ? "_blank" : undefined} />
+}
+
 export function Navigation({ links }: NavigationProps): JSX.Element {
     const pathname = usePathname();
 
-    const activeLinks = links.map((link) => ({
+    const linksWithHomepage = [{
+        label: "Home",
+        href: "/"
+    }, ...links];
+
+    const activeLinks = linksWithHomepage.map((link) => ({
         ...link,
         active: pathname === link.href,
     }));
 
 
     return (
-        <UINavigation asAnchor={Link}
+        <UINavigation
+            asAnchor={Anchor}
             links={activeLinks}
         />
     );

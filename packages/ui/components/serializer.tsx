@@ -16,6 +16,11 @@ export function Serializer<T extends BaseNode>(props: ParserProps<T>): JSX.Eleme
     const { node, parsers } = props;
     const parser = parsers[node.type as keyof typeof parsers];
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- there might be no parser for a node type
+    if (!parser) {
+        throw new Error(`No parser for node type "${node.type}"`);
+    }
+
     return parser({
         ...props,
         node: node as Extract<T, { type: T['type'] }>

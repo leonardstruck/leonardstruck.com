@@ -75,6 +75,9 @@ importers:
       config:
         specifier: workspace:*
         version: link:../../packages/config
+      logger:
+        specifier: workspace:*
+        version: link:../../packages/logger
       next:
         specifier: ^14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -90,6 +93,9 @@ importers:
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
+      ts-pattern:
+        specifier: ^5.0.5
+        version: 5.0.5
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
@@ -155,6 +161,12 @@ importers:
       typescript:
         specifier: ^4.5.3
         version: 4.9.5
+
+  packages/logger:
+    dependencies:
+      pino:
+        specifier: ^8.16.1
+        version: 8.16.1
 
   packages/tailwind-plugin-gradient-mask:
     devDependencies:
@@ -9533,6 +9545,23 @@ packages:
       thread-stream: 2.4.1
     dev: false
 
+  /pino@8.16.1:
+    resolution: {integrity: sha512-3bKsVhBmgPjGV9pyn4fO/8RtoVDR8ssW1ev819FsRXlRNgW8gR/9Kx+gCK4UPWd4JjrRDLWpzd/pb1AyWm3MGA==}
+    hasBin: true
+    dependencies:
+      atomic-sleep: 1.0.0
+      fast-redact: 3.3.0
+      on-exit-leak-free: 2.1.2
+      pino-abstract-transport: 1.1.0
+      pino-std-serializers: 6.2.2
+      process-warning: 2.2.0
+      quick-format-unescaped: 4.0.4
+      real-require: 0.2.0
+      safe-stable-stringify: 2.4.3
+      sonic-boom: 3.7.0
+      thread-stream: 2.4.1
+    dev: false
+
   /pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
@@ -12094,6 +12123,10 @@ packages:
       typescript: 4.9.5
       yn: 3.1.1
     dev: true
+
+  /ts-pattern@5.0.5:
+    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
+    dev: false
 
   /tsconfig-paths@3.14.2:
     resolution: {integrity: sha512-o/9iXgCYc5L/JxCHPe3Hvh8Q/2xm5Z+p18PESBU6Ff33695QnCHBEjcytY2q19ua7Mbl/DavtBOLq+oG0RCL+g==}

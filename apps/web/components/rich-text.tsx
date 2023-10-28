@@ -8,7 +8,7 @@ interface RichTextProps {
 
 export function RichText(props: RichTextProps): JSX.Element {
     return (
-        <div>
+        <div className="prose prose-invert prose-headings:font-mono">
             <Serializer node={props.node as Nodes} parsers={parsers} />
         </div>
     );
@@ -36,10 +36,20 @@ const parsers: Parsers<Nodes> = {
     },
     text: ({ node }) => {
         return <>{node.text}</>;
+    },
+    heading: ({ node }) => {
+        const Tag = node.tag;
+        return (
+            <Tag>
+                {node.children.map((child) => (
+                    <Serializer key={useId()} node={child} parsers={parsers} />
+                ))}
+            </Tag>
+        );
     }
 };
 
-type Nodes = RootNode | ParagraphNode | TextNode;
+type Nodes = RootNode | ParagraphNode | TextNode | HeadingNode;
 
 interface RootNode extends BaseNode {
     type: "root";
@@ -54,4 +64,10 @@ interface ParagraphNode extends BaseNode {
 interface TextNode extends BaseNode {
     type: "text";
     text: string;
+}
+
+interface HeadingNode extends BaseNode {
+    type: "heading";
+    tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    children: Nodes[];
 }
