@@ -8,7 +8,6 @@ import { RichText } from '../../../components/rich-text';
 function Preview({ page, serverURL }: { page: Page | Homepage | null | undefined, serverURL: string }): JSX.Element {
     const { data } = useLivePreview({
         serverURL,
-        depth: 2,
         initialData: page,
     });
 

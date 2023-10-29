@@ -24,6 +24,9 @@ module.exports = {
         sans: "var(--font-geist-sans)",
         mono: "var(--font-geist-mono)",
       },
+      borderRadius: {
+        "4xl": "2rem",
+      }
     },
   },
   plugins: [

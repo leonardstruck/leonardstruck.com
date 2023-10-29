@@ -15,11 +15,13 @@ import Navigation from './globals/Navigation'
 import Homepage from './globals/Homepage'
 import Footer from './globals/Footer'
 import Media from './collections/Media'
+import Blocks from './globals/Blocks'
 
 const revalidatePath = path.resolve(__dirname, 'lib/revalidate')
 const mockModulePath = path.resolve(__dirname, 'lib/mock')
 
 export default buildConfig({
+  serverURL: process.env.PAYLOAD_URL,
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
@@ -36,7 +38,7 @@ export default buildConfig({
   },
   editor,
   collections: [Users, Pages, Media],
-  globals: [Navigation, Homepage, Footer],
+  globals: [Navigation, Homepage, Footer, Blocks],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
     declare: false

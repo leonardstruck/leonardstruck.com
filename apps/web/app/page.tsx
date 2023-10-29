@@ -6,7 +6,7 @@ export default async function Page(): Promise<JSX.Element> {
     const homepage = await getHomepage();
     const content = (homepage as { content?: { root?: BaseNode } }).content?.root;
     return (
-        <div className="prose prose-invert">
+        <div>
             {content ? <RichText node={content} /> : null}
         </div>
     )

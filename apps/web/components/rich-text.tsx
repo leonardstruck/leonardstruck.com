@@ -1,16 +1,21 @@
 /* eslint-disable react/no-array-index-key -- temporary, payload should provide id's for each node */
 import { Serializer } from "ui";
 import type { BaseNode, Parsers } from "ui/components/serializer";
+import type { Block } from "cms/src/payload-types";
+import type { ArrElement } from "../lib/type-helpers";
+import RenderBlock from "./render-block";
 
 interface RichTextProps {
     node: unknown;
 }
 
+function Prose({ children }: { children: React.ReactNode }): JSX.Element {
+    return <div className="prose prose-invert prose-neutral prose-headings:font-mono">{children}</div>;
+}
+
 export function RichText(props: RichTextProps): JSX.Element {
     return (
-        <div className="prose prose-invert prose-neutral prose-headings:font-mono">
-            <Serializer node={props.node as Nodes} parsers={parsers} />
-        </div>
+        <Serializer node={props.node as Nodes} parsers={parsers} />
     );
 }
 
@@ -18,7 +23,7 @@ export function RichText(props: RichTextProps): JSX.Element {
 const parsers: Parsers<Nodes> = {
     root: ({ node }) => {
         return (
-            <div>
+            <div className="space-y-5">
                 {node.children.map((child, index) => {
                     return <Serializer key={index} node={child} parsers={parsers} />
                 })}
@@ -27,11 +32,13 @@ const parsers: Parsers<Nodes> = {
     },
     paragraph: ({ node }) => {
         return (
-            <p>
-                {node.children.map((child, index) => {
-                    return <Serializer key={index} node={child} parsers={parsers} />
-                })}
-            </p>
+            <Prose>
+                <p>
+                    {node.children.map((child, index) => {
+                        return <Serializer key={index} node={child} parsers={parsers} />
+                    })}
+                </p>
+            </Prose>
         );
     },
     text: ({ node }) => {
@@ -40,16 +47,21 @@ const parsers: Parsers<Nodes> = {
     heading: ({ node }) => {
         const Tag = node.tag;
         return (
-            <Tag>
-                {node.children.map((child, index) => {
-                    return <Serializer key={index} node={child} parsers={parsers} />
-                })}
-            </Tag>
+            <Prose>
+                <Tag>
+                    {node.children.map((child, index) => {
+                        return <Serializer key={index} node={child} parsers={parsers} />
+                    })}
+                </Tag>
+            </Prose>
         );
+    },
+    block: ({ node }) => {
+        return <div className="pb-24"><RenderBlock block={node.fields.data} /></div>;
     }
 };
 
-type Nodes = RootNode | ParagraphNode | TextNode | HeadingNode;
+type Nodes = RootNode | ParagraphNode | TextNode | HeadingNode | BlockNode;
 
 interface RootNode extends BaseNode {
     type: "root";
@@ -70,4 +82,11 @@ interface HeadingNode extends BaseNode {
     type: "heading";
     tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
     children: Nodes[];
+}
+
+interface BlockNode extends BaseNode {
+    type: "block";
+    fields: {
+        data: ArrElement<Block["blocks"]>;
+    }
 }

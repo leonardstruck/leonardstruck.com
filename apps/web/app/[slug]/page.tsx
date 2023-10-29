@@ -16,10 +16,11 @@ export default async function Page({ params: { slug } }: PageProps): Promise<JSX
   }
 
   const content = (page as { content?: { root?: BaseNode } }).content?.root;
+
   return (
-    <div className="prose prose-invert">
+    <>
       {content ? <RichText node={content} /> : null}
-    </div>
+    </>
   )
 }
 

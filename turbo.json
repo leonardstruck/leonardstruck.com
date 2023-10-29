@@ -7,7 +7,7 @@
     },
     "build": {
       "dependsOn": ["^build", "types"],
-      "env": ["PAYLOAD_*"],
+      "env": ["PAYLOAD_*", "NEXT_IMAGE_DOMAINS"],
       "outputs": [".next/**", "!.next/cache/**", "build/**", "dist/**"]
     },
     "lint": {},
