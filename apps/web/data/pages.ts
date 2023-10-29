@@ -26,15 +26,18 @@ export const getPages = async (): Promise<Page[]> => {
     return pages.docs;
 }
 
-export const getPageBySlug = async (slug: string): Promise<Page | null> => {
+export const getPageBySlug = async (slug: string, draft?: boolean): Promise<Page | null> => {
     const page = await payload<PaginatedDocs<Page>>({
         endpoint: `pages`,
         query: {
             where: {
                 slug: {
                     equals: slug
+                },
+                _status: {
+                    not_equals: draft ? undefined : "draft"
                 }
-            }
+            },
         },
         headers: getAdminAuthHeaders(),
         next: {

@@ -9,7 +9,7 @@ interface PageProps {
 };
 
 export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
-    const page = await getPageBySlug(slug);
+    const page = await getPageBySlug(slug, true);
     return <Preview page={page} serverURL={env.PAYLOAD_URL} />
 }
 
