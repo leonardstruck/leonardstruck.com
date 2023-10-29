@@ -6,7 +6,10 @@ export const slug = "pages";
 const Pages: CollectionConfig = {
     slug,
     admin: {
-        useAsTitle: "title"
+        useAsTitle: "title",
+        livePreview: {
+            url: ({ data }) => { const base = process.env.PAYLOAD_LIVE_PREVIEW_URL || "http://localhost:3000"; return `${base}/preview/page/${data.slug}` }
+        }
     },
     versions: {
         drafts: true,

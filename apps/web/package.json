@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@payloadcms/live-preview-react": "^0.1.5",
     "@types/qs": "^6.9.9",
     "config": "workspace:*",
     "geist": "^1.0.0",

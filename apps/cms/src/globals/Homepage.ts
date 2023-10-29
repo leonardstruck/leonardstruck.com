@@ -6,6 +6,11 @@ export const slug = "homepage";
 
 const Homepage: GlobalConfig = {
     slug,
+    admin: {
+        livePreview: {
+            url: () => { const base = process.env.PAYLOAD_LIVE_PREVIEW_URL || "http://localhost:3000"; return `${base}/preview/homepage` }
+        }
+    },
     versions: {
         drafts: true,
     },

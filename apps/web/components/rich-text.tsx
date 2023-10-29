@@ -1,4 +1,4 @@
-import { useId } from "react";
+/* eslint-disable react/no-array-index-key -- temporary, payload should provide id's for each node */
 import { Serializer } from "ui";
 import type { BaseNode, Parsers } from "ui/components/serializer";
 
@@ -19,18 +19,18 @@ const parsers: Parsers<Nodes> = {
     root: ({ node }) => {
         return (
             <div>
-                {node.children.map((child) => (
-                    <Serializer key={useId()} node={child} parsers={parsers} />
-                ))}
+                {node.children.map((child, index) => {
+                    return <Serializer key={index} node={child} parsers={parsers} />
+                })}
             </div>
         );
     },
     paragraph: ({ node }) => {
         return (
             <p>
-                {node.children.map((child) => (
-                    <Serializer key={useId()} node={child} parsers={parsers} />
-                ))}
+                {node.children.map((child, index) => {
+                    return <Serializer key={index} node={child} parsers={parsers} />
+                })}
             </p>
         );
     },
@@ -41,9 +41,9 @@ const parsers: Parsers<Nodes> = {
         const Tag = node.tag;
         return (
             <Tag>
-                {node.children.map((child) => (
-                    <Serializer key={useId()} node={child} parsers={parsers} />
-                ))}
+                {node.children.map((child, index) => {
+                    return <Serializer key={index} node={child} parsers={parsers} />
+                })}
             </Tag>
         );
     }
