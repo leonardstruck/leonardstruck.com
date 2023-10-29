@@ -3,6 +3,7 @@ import { z } from "zod";
 const envSchema = z.object({
     PAYLOAD_URL: z.string().url(),
     PAYLOAD_TOKEN: z.string(),
+    NODE_ENV: z.enum(["development", "production"]).default("development"),
 });
 
 const envServer = envSchema.safeParse(process.env);
