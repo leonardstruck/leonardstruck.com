@@ -1,11 +1,12 @@
 import { HorizontalRule } from "./horizontal-rule"
 import type { NavigationLink } from "./navigation";
 
-type FooterNavLink = Omit<NavigationLink, "active">;
+export type FooterNavLink = Omit<NavigationLink, "active">;
 
 interface FooterProps {
     links?: FooterNavLink[];
-    asAnchor?: (props: { href: string; children: React.ReactNode, link?: NavigationLink }) => JSX.Element;
+    // should be either a next/link or a regular anchor target, rel etc. should be passed through
+    asAnchor?: (props: { href: string; children: React.ReactNode, link?: FooterNavLink }) => JSX.Element;
 };
 
 export function Footer({ links, asAnchor }: FooterProps): JSX.Element {
@@ -18,7 +19,7 @@ export function Footer({ links, asAnchor }: FooterProps): JSX.Element {
                     {links?.map((link) => {
                         const Anchor = asAnchor || "a";
                         return (
-                            <Anchor className="py-4 font-black font-mono transition-transform hover:-translate-y-0.5 hover:underline underline-offset-4 decoration-4" href={link.href} key={link.href} target={link.external ? "_blank" : undefined}>
+                            <Anchor className="py-4 font-black font-mono transition-transform hover:-translate-y-0.5 hover:underline underline-offset-4 decoration-4" href={link.href} key={link.href} rel={link.external ? "noopener noreferrer" : undefined} target={link.external ? "_blank" : undefined}>
                                 {link.label}
                             </Anchor>
                         );

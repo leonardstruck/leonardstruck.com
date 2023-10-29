@@ -5,6 +5,7 @@ import "./globals.css"
 import { Footer } from "ui"
 import { Anchor, Navigation } from "../components/navigation";
 import { getNavLinks } from "../data/navigation";
+import { getFooterLinks } from "../data/footer";
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }): Promise<JSX.Element> {
   const links = await getNavLinks();
-
+  const footerLinks = await getFooterLinks();
 
   return (
     <html lang="en">
@@ -29,7 +30,7 @@ export default async function RootLayout({
         <main className="container flex-1">
           {children}
         </main>
-        <Footer asAnchor={Anchor} links={links} />
+        <Footer asAnchor={Anchor} links={footerLinks} />
       </body>
     </html>
   );

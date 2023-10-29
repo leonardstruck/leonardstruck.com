@@ -11,6 +11,7 @@ import Users from './collections/Users'
 import Pages from './collections/Pages'
 import Navigation from './globals/Navigation'
 import Homepage from './globals/Homepage'
+import Footer from './globals/Footer'
 
 const revalidatePath = path.resolve(__dirname, 'lib/revalidate')
 const mockModulePath = path.resolve(__dirname, 'lib/mock')
@@ -32,7 +33,7 @@ export default buildConfig({
   },
   editor,
   collections: [Users, Pages],
-  globals: [Navigation, Homepage],
+  globals: [Navigation, Homepage, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
     declare: false

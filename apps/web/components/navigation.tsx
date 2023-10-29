@@ -11,7 +11,7 @@ export interface NavigationProps {
 
 
 export function Anchor(props: { href: string; children: React.ReactNode, link?: NavigationLink }): JSX.Element {
-    return <Link {...props} target={props.link?.external ? "_blank" : undefined} />
+    return <Link {...props} />
 }
 
 export function Navigation({ links }: NavigationProps): JSX.Element {
