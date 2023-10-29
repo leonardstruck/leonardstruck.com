@@ -6,6 +6,9 @@ export const slug = "homepage";
 
 const Homepage: GlobalConfig = {
     slug,
+    versions: {
+        drafts: true,
+    },
     fields: Pages.fields.filter((field) => {
         if ("name" in field) {
             if (field.name == "slug") {
