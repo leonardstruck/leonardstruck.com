@@ -3,7 +3,7 @@ import { GeistSans, GeistMono } from 'geist/font'
 import "ui/tailwind.css"
 import "./globals.css"
 import { Footer } from "ui"
-import { Navigation } from "../components/navigation";
+import { Anchor, Navigation } from "../components/navigation";
 import { getNavLinks } from "../data/navigation";
 
 
@@ -26,10 +26,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${GeistMono.variable} ${GeistSans.variable} flex flex-col`}>
         <Navigation links={links} />
-        <main className="container max-w-prose flex-1">
+        <main className="container flex-1">
           {children}
         </main>
-        <Footer links={links} />
+        <Footer asAnchor={Anchor} links={links} />
       </body>
     </html>
   );

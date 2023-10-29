@@ -10,7 +10,7 @@ export interface NavigationProps {
 }
 
 
-function Anchor(props: { href: string; children: React.ReactNode, link?: NavigationLink }): JSX.Element {
+export function Anchor(props: { href: string; children: React.ReactNode, link?: NavigationLink }): JSX.Element {
     return <Link {...props} target={props.link?.external ? "_blank" : undefined} />
 }
 
