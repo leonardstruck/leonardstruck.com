@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { getPageBySlug, getPages } from "../../../../../data/pages";
 import Preview from "../../preview";
 import env from "../../../../../lib/env";
@@ -11,10 +10,6 @@ interface PageProps {
 
 export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
     const page = await getPageBySlug(slug);
-    if (!page) {
-        notFound();
-    }
-
     return <Preview page={page} serverURL={env.PAYLOAD_URL} />
 }
 
