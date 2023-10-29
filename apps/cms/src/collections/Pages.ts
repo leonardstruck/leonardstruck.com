@@ -8,7 +8,7 @@ const Pages: CollectionConfig = {
     admin: {
         useAsTitle: "title",
         livePreview: {
-            url: ({ data }) => { const base = process.env.PAYLOAD_LIVE_PREVIEW_URL || "http://localhost:3000"; return `${base}/preview/page/${data.slug}` }
+            url: ({ data }) => { const base = process.env.PAYLOAD_PUBLIC_LIVE_PREVIEW_URL || "http://localhost:3000"; return `${base}/preview/page/${data.slug}` }
         }
     },
     versions: {
