@@ -9,7 +9,15 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '2rem'
+      padding: '2rem',
+      screens: (theme) => {
+        return {
+          //...theme('screens'),
+          sm: "100%",
+          md: "100%",
+          lg: "1024px",
+        }
+      }
     },
     extend: {
       fontFamily: {
@@ -23,4 +31,3 @@ module.exports = {
     require('@tailwindcss/typography'),
   ],
 }
-

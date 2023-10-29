@@ -10,7 +10,7 @@ interface FooterProps {
 
 export function Footer({ links, asAnchor }: FooterProps): JSX.Element {
     return (
-        <div className="container mt-24 max-w-prose">
+        <div className="container mt-24">
             <HorizontalRule />
             <div className="font-mono text-sm text-neutral-500 py-6 flex justify-between">
                 <span>Leonard Struck</span>
