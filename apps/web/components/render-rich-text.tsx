@@ -13,7 +13,7 @@ function Prose({ children }: { children: React.ReactNode }): JSX.Element {
     return <div className="prose prose-invert prose-neutral prose-headings:font-mono">{children}</div>;
 }
 
-export function RichText(props: RichTextProps): JSX.Element {
+export function RenderRichText(props: RichTextProps): JSX.Element {
     return (
         <Serializer node={props.node as Nodes} parsers={parsers} />
     );
@@ -61,7 +61,7 @@ const parsers: Parsers<Nodes> = {
     }
 };
 
-type Nodes = RootNode | ParagraphNode | TextNode | HeadingNode | BlockNode;
+export type Nodes = RootNode | ParagraphNode | TextNode | HeadingNode | BlockNode;
 
 interface RootNode extends BaseNode {
     type: "root";

@@ -2,8 +2,7 @@
 
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import type { Homepage, Page } from 'cms/src/payload-types';
-import type { BaseNode } from 'ui/components/serializer';
-import { RichText } from '../../../components/rich-text';
+import RenderPage from '@/components/render-page';
 
 function Preview({ page, serverURL }: { page: Page | Homepage | null | undefined, serverURL: string }): JSX.Element {
     const { data } = useLivePreview({
@@ -11,13 +10,11 @@ function Preview({ page, serverURL }: { page: Page | Homepage | null | undefined
         initialData: page,
     });
 
-    const content = (data as { content?: { root?: BaseNode } }).content?.root;
+    if (!data) {
+        return <div>Loading...</div>;
+    }
 
-    return (
-        <div className="prose prose-invert">
-            {content ? <RichText node={content} /> : null}
-        </div>
-    );
+    return <RenderPage page={data} />;
 };
 
 export default Preview;

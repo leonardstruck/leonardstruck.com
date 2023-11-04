@@ -8,6 +8,7 @@ import { Anchor, Navigation } from "../components/navigation";
 import { getNavLinks } from "../data/navigation";
 import { getFooterLinks } from "../data/footer";
 import env from "../lib/env";
+import Providers from "./providers";
 
 
 export const metadata: Metadata = {
@@ -28,14 +29,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${GeistMono.variable} ${GeistSans.variable} flex flex-col`}>
-        <Navigation links={links} />
-        <main className="container flex-1">
-          {children}
-        </main>
-        <Footer asAnchor={Anchor} links={footerLinks} />
-        {env.NODE_ENV === "production" && (
-          <Script data-domain="leonardstruck.com" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
-        )}
+        <Providers>
+          <Navigation links={links} />
+          <main className="container flex-1">
+            {children}
+          </main>
+          <Footer asAnchor={Anchor} links={footerLinks} />
+          {env.NODE_ENV === "production" && (
+            <Script data-domain="leonardstruck.com" src="https://plausible.io/js/script.js" strategy="afterInteractive" />
+          )}
+        </Providers>
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import type { BaseNode } from "ui/components/serializer";
+import RenderPage from "@/components/render-page";
 import { getPageBySlug, getPages } from "../../data/pages";
-import { RichText } from "../../components/rich-text";
 
 interface PageProps {
   params: {
@@ -15,13 +14,7 @@ export default async function Page({ params: { slug } }: PageProps): Promise<JSX
     notFound();
   }
 
-  const content = (page as { content?: { root?: BaseNode } }).content?.root;
-
-  return (
-    <>
-      {content ? <RichText node={content} /> : null}
-    </>
-  )
+  return <RenderPage page={page} />;
 }
 
 export async function generateStaticParams(): Promise<PageProps[]> {

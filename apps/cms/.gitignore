@@ -6,3 +6,4 @@ node_modules
 .env
 
 src/payload-types.ts
+src/payload-zod-schema.ts
