@@ -16,25 +16,25 @@
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.438.0",
-    "@aws-sdk/lib-storage": "^3.438.0",
-    "@payloadcms/bundler-webpack": "^1.0.0",
-    "@payloadcms/db-postgres": "^0.1.10",
+    "@aws-sdk/client-s3": "^3.441.0",
+    "@aws-sdk/lib-storage": "^3.441.0",
+    "@payloadcms/bundler-webpack": "^1.0.5",
+    "@payloadcms/db-postgres": "^0.1.12",
     "@payloadcms/plugin-cloud": "^2.2.6",
     "@payloadcms/plugin-cloud-storage": "^1.1.1",
-    "@payloadcms/richtext-lexical": "^0.1.15",
+    "@payloadcms/richtext-lexical": "^0.1.16",
     "config": "workspace:*",
     "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^16.3.1",
     "drizzle-orm": "0.28.5",
     "express": "^4.18.2",
-    "payload": "^2.0.13"
+    "payload": "^2.0.15"
   },
   "devDependencies": {
-    "@types/express": "^4.17.9",
+    "@types/express": "^4.17.20",
     "copyfiles": "^2.4.1",
-    "nodemon": "^2.0.6",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.8.4"
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
