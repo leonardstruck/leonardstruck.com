@@ -1,4 +1,5 @@
-/* eslint-disable react/no-array-index-key -- temporary, payload should provide id's for each node */
+/* eslint-disable react/no-array-index-key -- payload sadly doesn't provide any id's for each node */
+
 import { Serializer } from "ui";
 import type { BaseNode, Parsers } from "ui/components/serializer";
 import type { Block } from "cms/src/payload-types";

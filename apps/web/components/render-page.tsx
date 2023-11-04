@@ -9,7 +9,7 @@ interface RenderPageProps {
 export default function RenderPage({ page }: RenderPageProps): JSX.Element {
     const content = (page as { content?: { root?: BaseNode } }).content?.root;
     return (
-        <div className="prose prose-invert">
+        <div className="prose-invert">
             {content ? <RenderRichText node={content} /> : null}
         </div>
     )
