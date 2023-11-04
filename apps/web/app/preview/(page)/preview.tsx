@@ -2,7 +2,7 @@
 
 import { useLivePreview } from '@payloadcms/live-preview-react'
 import type { Homepage, Page } from 'cms/src/payload-types';
-import RenderPage from '@/components/render-page';
+import PageRenderer from '@/renderers/page/page-renderer';
 
 function Preview({ page, serverURL }: { page: Page | Homepage | null | undefined, serverURL: string }): JSX.Element {
     const { data } = useLivePreview({
@@ -14,7 +14,7 @@ function Preview({ page, serverURL }: { page: Page | Homepage | null | undefined
         return <div>Loading...</div>;
     }
 
-    return <RenderPage page={data} />;
+    return <PageRenderer page={data} />;
 };
 
 export default Preview;

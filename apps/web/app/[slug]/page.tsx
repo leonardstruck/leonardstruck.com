@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import RenderPage from "@/components/render-page";
-import { getPageBySlug, getPages } from "../../data/pages";
+import { getPageBySlug, getPages } from "@/data/pages";
+import PageRenderer from "@/renderers/page/page-renderer";
 
 interface PageProps {
   params: {
@@ -14,7 +14,7 @@ export default async function Page({ params: { slug } }: PageProps): Promise<JSX
     notFound();
   }
 
-  return <RenderPage page={page} />;
+  return <PageRenderer page={page} />;
 }
 
 export async function generateStaticParams(): Promise<PageProps[]> {

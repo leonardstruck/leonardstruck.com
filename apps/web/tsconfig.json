@@ -6,7 +6,8 @@
       "@/components/*": ["./components/*"],
       "@/actions/*": ["./actions/*"],
       "@/lib/*": ["./lib/*"],
-      "@/data/*": ["./data/*"]
+      "@/data/*": ["./data/*"],
+      "@/renderers/*": ["./renderers/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

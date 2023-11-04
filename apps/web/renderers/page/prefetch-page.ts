@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import type { Homepage, Page } from "cms/src/payload-types";
-import type { BaseNode } from "ui/components/serializer";
-import { prefetchRichText } from "./prefetch-rich-text";
+import { prefetchRichText } from "../rich-text/prefetch-rich-text";
+import type { RootNode } from "../rich-text/nodes/root";
 
 interface PrefetchPageArgs {
     queryClient: QueryClient;
@@ -9,9 +9,8 @@ interface PrefetchPageArgs {
 }
 
 export async function prefetchPage({ queryClient, page }: PrefetchPageArgs): Promise<void> {
-    const content = (page as { content?: { root?: BaseNode } }).content?.root;
+    const content = (page as { content?: { root?: RootNode } }).content?.root;
+    if (!content) return;
 
-    await Promise.all(
-        [prefetchRichText({ queryClient, content })]
-    )
+    await prefetchRichText({ queryClient, content })
 };

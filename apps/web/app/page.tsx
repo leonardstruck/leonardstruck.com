@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import RenderPage from "@/components/render-page";
-import { prefetchPage } from "@/components/prefetch-page";
-import { getHomepage } from "../data/pages"
+import { getHomepage } from "@/data/pages"
+import PageRenderer from "@/renderers/page/page-renderer";
+import { prefetchPage } from "@/renderers/page/prefetch-page";
 
 export default async function Page(): Promise<JSX.Element> {
     const homepage = await getHomepage();
@@ -13,7 +13,7 @@ export default async function Page(): Promise<JSX.Element> {
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
             <div>
-                <RenderPage page={homepage} />
+                <PageRenderer page={homepage} />
             </div>
         </HydrationBoundary>
     )

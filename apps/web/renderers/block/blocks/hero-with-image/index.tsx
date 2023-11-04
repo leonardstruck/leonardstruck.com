@@ -17,13 +17,13 @@ function AsImage(props: { image: Image }): JSX.Element {
     const imageData = props.image.sizes?.large;
 
     if (!imageData?.url || !imageData.width || !imageData.height) {
-        throw new Error("Not hydrated");
+        throw new Error("Image data is missing")
     }
 
     return <Image alt={props.image.alt ?? ""} height={imageData.height} src={imageData.url} width={imageData.width} {...props} />;
 }
 
-export function HeroWithImageBlock({ block }: HeroWithImageProps): React.ReactNode {
+export default function HeroWithImageBlock({ block }: HeroWithImageProps): React.ReactNode {
     const { data: res, isLoading } = useQuery({
         queryKey: imageQueryKey(block.image),
         queryFn: async () => resolveImage(block.image),
