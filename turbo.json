@@ -17,7 +17,7 @@
       "inputs": ["src/payload-types.ts"]
     },
     "build": {
-      "dependsOn": ["^build", "types"],
+      "dependsOn": ["^build", "types", "schema"],
       "env": ["PAYLOAD_*", "NEXT_IMAGE_DOMAINS"],
       "outputs": [".next/**", "!.next/cache/**", "build/**", "dist/**"]
     },
