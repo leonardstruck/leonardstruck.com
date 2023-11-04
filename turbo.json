@@ -3,7 +3,18 @@
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "types": {
+      "inputs": [
+        "src/blocks/**/*",
+        "src/collections/**/*",
+        "src/fields/**/*",
+        "src/globals/**/*"
+      ],
       "outputs": ["src/payload-types.ts"]
+    },
+    "schema": {
+      "dependsOn": ["types"],
+      "outputs": ["src/payload-zod-schema.ts"],
+      "inputs": ["src/payload-types.ts"]
     },
     "build": {
       "dependsOn": ["^build", "types"],
@@ -12,6 +23,7 @@
     },
     "lint": {},
     "dev": {
+      "dependsOn": ["types", "schema"],
       "cache": false,
       "persistent": true
     }

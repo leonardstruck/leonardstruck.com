@@ -1,9 +1,10 @@
 import { Block } from "payload/types";
+import { generateInterfaceNameFromSlug } from "../lib/names";
 
 export const slug = "hero-with-image";
 const HeroWithImage: Block = {
     slug,
-    interfaceName: "HeroWithImage",
+    interfaceName: generateInterfaceNameFromSlug(slug, "block"),
     fields: [
         {
             type: "upload",

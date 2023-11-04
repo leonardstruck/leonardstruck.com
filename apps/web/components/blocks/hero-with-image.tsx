@@ -1,13 +1,17 @@
-import type { HeroWithImage } from "cms/src/payload-types";
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import type { IHeroWithImageBlock } from "cms/src/payload-types";
 import Image from "next/image";
-import { P, match } from "ts-pattern";
-import { HeroWithImage as HeroWithImageComponent } from "ui";
+import { HeroWithImage } from "ui";
+import resolveImage from "@/actions/resolve-image";
+import { imageQueryKey } from "@/lib/query-keys";
 
 interface HeroWithImageProps {
-    block: HeroWithImage;
+    block: IHeroWithImageBlock;
 }
 
-type Image = Exclude<HeroWithImage["image"], number>;
+type Image = Exclude<IHeroWithImageBlock["image"], number>;
 
 function AsImage(props: { image: Image }): JSX.Element {
     const imageData = props.image.sizes?.large;
@@ -19,13 +23,27 @@ function AsImage(props: { image: Image }): JSX.Element {
     return <Image alt={props.image.alt ?? ""} height={imageData.height} src={imageData.url} width={imageData.width} {...props} />;
 }
 
-export function HeroWithImage({ block }: HeroWithImageProps): JSX.Element {
-    /* eslint-disable -- ts-pattern is not yet supported by eslint */
-    const image = match(block.image)
-        .with({ sizes: { large: { url: P.string } } }, (media) => media)
-        .otherwise(() => {
-            throw new Error("Not hydrated")
-        });
+export function HeroWithImageBlock({ block }: HeroWithImageProps): React.ReactNode {
+    const { data: res, isLoading } = useQuery({
+        queryKey: imageQueryKey(block.image),
+        queryFn: async () => resolveImage(block.image),
+    })
 
-    return <HeroWithImageComponent imageSrc={image.sizes.large.url} title={block.title} asImage={(props) => AsImage({ image, ...props })} />;
+    if (isLoading || !res?.data) {
+        return null;
+    }
+
+    const image = res.data;
+
+    if (!image.sizes?.large?.url) {
+        return null;
+    }
+
+    return (
+        <HeroWithImage
+            asImage={(props) => AsImage({ image, ...props })}
+            imageAlt={image.alt ?? ""}
+            imageSrc={image.sizes.large.url}
+            title={block.title} />
+    );
 }

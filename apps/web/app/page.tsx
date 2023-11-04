@@ -1,13 +1,20 @@
-import type { BaseNode } from "ui/components/serializer";
-import { RichText } from "../components/rich-text";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import RenderPage from "@/components/render-page";
+import { prefetchPage } from "@/components/prefetch-page";
 import { getHomepage } from "../data/pages"
 
 export default async function Page(): Promise<JSX.Element> {
     const homepage = await getHomepage();
-    const content = (homepage as { content?: { root?: BaseNode } }).content?.root;
+
+    const queryClient = new QueryClient();
+    await prefetchPage({ queryClient, page: homepage });
+
+
     return (
-        <div>
-            {content ? <RichText node={content} /> : null}
-        </div>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <div>
+                <RenderPage page={homepage} />
+            </div>
+        </HydrationBoundary>
     )
 }
