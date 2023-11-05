@@ -20,7 +20,7 @@ function AsImage(props: { image: Image }): JSX.Element {
         throw new Error("Image data is missing")
     }
 
-    return <Image alt={props.image.alt ?? ""} height={imageData.height} src={imageData.url} width={imageData.width} {...props} />;
+    return <Image alt={props.image.alt ?? ""} height={imageData.height} src={imageData.url} width={imageData.width} {...props} priority />;
 }
 
 export default function HeroWithImageBlock({ block }: HeroWithImageProps): React.ReactNode {
