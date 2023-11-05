@@ -12,7 +12,7 @@ export async function prefetchRichText({ queryClient, content }: PrefetchRichTex
     const promises = match(content)
         .with({ type: "block" }, (block) => [prefetchBlock({ queryClient, block: block.fields.data })])
         .with({ type: "root" }, (root) => root.children.map((child) => prefetchRichText({ queryClient, content: child })))
-        .otherwise(() => []);
+        .otherwise(() => [Promise.resolve()]);
 
     await Promise.all(promises);
 }

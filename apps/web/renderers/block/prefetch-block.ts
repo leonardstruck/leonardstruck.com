@@ -11,6 +11,6 @@ export interface PrefetchBlockArgs {
 export async function prefetchBlock(args: PrefetchBlockArgs): Promise<void> {
     await match(args.block)
         .with({ blockType: "hero-with-image" }, () => prefetchHeroWithImage(args))
-        .exhaustive();
+        .otherwise(() => Promise.resolve())
 };
 
