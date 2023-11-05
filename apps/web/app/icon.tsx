@@ -8,8 +8,6 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-export const runtime = "edge"
-
 // Image generation
 export default function Icon(): ImageResponse {
     return new ImageResponse(
