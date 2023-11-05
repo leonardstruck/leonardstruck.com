@@ -16,6 +16,11 @@
       "outputs": ["src/payload-zod-schema.ts"],
       "inputs": ["src/payload-types.ts"]
     },
+    "web#build": {
+      "dependsOn": ["^types", "^schema"],
+      "env": ["PAYLOAD_*", "NEXT_IMAGE_DOMAINS"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "build": {
       "dependsOn": ["^build", "types", "schema"],
       "env": ["PAYLOAD_*", "NEXT_IMAGE_DOMAINS"],
