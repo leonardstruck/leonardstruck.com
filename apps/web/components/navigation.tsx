@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Navigation as UINavigation } from "ui";
@@ -15,10 +16,11 @@ export function Anchor(props: { href: string; children: React.ReactNode, link?: 
 }
 
 export function Navigation({ links }: NavigationProps): JSX.Element {
+    const t = useTranslations("navigation");
     const pathname = usePathname();
 
     const linksWithHomepage = [{
-        label: "Home",
+        label: t("home"),
         href: "/"
     }, ...links];
 

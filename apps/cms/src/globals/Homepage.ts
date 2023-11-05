@@ -8,7 +8,7 @@ const Homepage: GlobalConfig = {
     slug,
     admin: {
         livePreview: {
-            url: `${process.env.PAYLOAD_PUBLIC_LIVE_PREVIEW_URL || "http://localhost:3000"}/preview/homepage`
+            url: ({ locale }) => `${process.env.PAYLOAD_PUBLIC_LIVE_PREVIEW_URL || "http://localhost:3000"}/${locale}/preview/homepage`
         }
     },
     versions: {
