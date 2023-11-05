@@ -1,5 +1,5 @@
-import { getHomepage } from "../../../../data/pages"
-import env from "../../../../lib/env";
+import { getHomepage } from "../../../../../data/pages"
+import env from "../../../../../lib/env";
 import Preview from "../preview";
 
 export default async function Page(): Promise<JSX.Element> {

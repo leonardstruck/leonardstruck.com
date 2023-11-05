@@ -1,6 +1,6 @@
-import { getPageBySlug, getPages } from "../../../../../data/pages";
+import { getPageBySlug, getPages } from "../../../../../../data/pages";
 import Preview from "../../preview";
-import env from "../../../../../lib/env";
+import env from "../../../../../../lib/env";
 
 interface PageProps {
     params: {

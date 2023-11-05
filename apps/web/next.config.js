@@ -1,5 +1,7 @@
+const withNextIntl = require("next-intl/plugin")("./lib/i18n.ts");
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
   reactStrictMode: true,
   transpilePackages: ["ui", "config", "logger"],
   images: {
@@ -8,3 +10,5 @@ module.exports = {
     }))
   }
 };
+
+module.exports = withNextIntl(config);

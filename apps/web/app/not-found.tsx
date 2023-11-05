@@ -1,11 +1,10 @@
-import Link from 'next/link'
+import Error404 from "@/components/error-404";
+import RootLayout from "./[locale]/layout";
 
-export default function NotFound(): JSX.Element {
+export default function NotFound(): React.ReactNode {
     return (
-        <div className="prose prose-invert prose-headings:font-mono">
-            <h1>404: Resource not found.</h1>
-            <h2>I apologize for the inconvenience. The page you are trying to access does not exist or has been moved.</h2>
-            <Link href="/">Return Home</Link>
-        </div>
+        <RootLayout params={{ locale: "en" }}>
+            <Error404 />
+        </RootLayout>
     )
 }
