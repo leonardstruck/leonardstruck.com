@@ -10,8 +10,7 @@ import { Anchor, Navigation } from "@/components/navigation";
 import { getNavLinks } from "@/data/navigation";
 import { getFooterLinks } from "@/data/footer";
 import Providers from "@/components/providers";
-import { isLocale, setRequestLocale } from "@/lib/i18n";
-
+import { isLocale, locales, setRequestLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: {
@@ -20,13 +19,19 @@ export const metadata: Metadata = {
   }
 };
 
+interface RootLayoutParams {
+  locale: string;
+}
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: RootLayoutParams;
+}
+
 export default async function RootLayout({
   children,
   params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}): Promise<JSX.Element> {
+}: RootLayoutProps): Promise<JSX.Element> {
   if (!isLocale(locale)) return notFound();
   setRequestLocale(locale);
 
@@ -45,10 +50,13 @@ export default async function RootLayout({
               {children}
             </main>
             <Footer asAnchor={Anchor} links={footerLinks} />
-
           </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
   );
+}
+
+export function generateStaticParams(): RootLayoutParams[] {
+  return locales.map((locale) => ({ locale }));
 }

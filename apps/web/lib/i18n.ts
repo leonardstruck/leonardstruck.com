@@ -14,7 +14,7 @@ export default getRequestConfig(async ({ locale }) => {
 
 export const locales = ['en', 'de'] as const;
 
-type Locale = typeof locales[number];
+export type Locale = typeof locales[number];
 
 export function isLocale(value: string): value is Locale {
     return locales.includes(value as Locale);

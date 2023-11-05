@@ -34,7 +34,7 @@ const Media: CollectionConfig = {
         read: () => true,
     },
     fields: [
-        { name: "alt", type: "text" }
+        { name: "alt", type: "text", localized: true }
     ]
 }
 

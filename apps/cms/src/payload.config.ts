@@ -36,6 +36,10 @@ export default buildConfig({
       }
     }),
   },
+  localization: {
+    locales: ['en', 'de'],
+    defaultLocale: 'en',
+  },
   editor,
   collections: [Users, Pages, Media],
   globals: [Navigation, Homepage, Footer, Blocks],
