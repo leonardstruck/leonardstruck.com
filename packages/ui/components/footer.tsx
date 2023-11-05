@@ -13,7 +13,7 @@ export function Footer({ links, asAnchor }: FooterProps): JSX.Element {
     return (
         <div className="container mt-24">
             <HorizontalRule />
-            <div className="font-mono text-sm text-neutral-500 py-6 flex justify-between">
+            <div className="font-mono text-sm text-neutral-400 py-6 flex justify-between">
                 <span>Leonard Struck</span>
                 <div>
                     {links?.map((link) => {
