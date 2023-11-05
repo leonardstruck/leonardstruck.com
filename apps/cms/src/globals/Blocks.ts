@@ -7,10 +7,11 @@ IN CASE THE BLOCKSFEATURE IN LEXICALEDITOR EVER PASSES DOWN THE BLOCKS TO THE TY
 
 import { GlobalConfig } from "payload/types";
 import HeroWithImage from "../blocks/HeroWithImage";
+import TwoColLayout from "../blocks/TwoColLayout";
 
 export const slug = "blocks";
 
-const blocks = [HeroWithImage]
+export const blocks = [HeroWithImage, TwoColLayout]
 
 const Blocks: GlobalConfig = {
     slug,
