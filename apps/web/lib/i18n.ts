@@ -1,6 +1,10 @@
 import type { AbstractIntlMessages } from "next-intl";
 import { getRequestConfig, unstable_setRequestLocale as setLocale } from "next-intl/server";
 
+
+export const locales = ['en', 'de'] as const;
+export const defaultTimezone = "Europe/Vienna";
+
 interface Module {
     default: AbstractIntlMessages;
 }
@@ -9,10 +13,11 @@ export default getRequestConfig(async ({ locale }) => {
     const mod = await import(`../messages/${locale}.json`) as Module;
     return {
         messages: mod.default,
+        timeZone: defaultTimezone
     }
 })
 
-export const locales = ['en', 'de'] as const;
+
 
 export type Locale = typeof locales[number];
 

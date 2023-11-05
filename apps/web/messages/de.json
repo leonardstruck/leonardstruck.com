@@ -5,5 +5,8 @@
       "description": "Ich bitte um Entschuldigung. Die Seite, auf die Sie versuchen zuzugreifen, existiert nicht oder wurde verschoben.",
       "go_back": "Zurück zur Startseite"
     }
+  },
+  "navigation": {
+    "home": "Startseite"
   }
 }

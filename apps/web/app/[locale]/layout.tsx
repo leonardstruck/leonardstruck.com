@@ -10,7 +10,7 @@ import { Anchor, Navigation } from "@/components/navigation";
 import { getNavLinks } from "@/data/navigation";
 import { getFooterLinks } from "@/data/footer";
 import Providers from "@/components/providers";
-import { isLocale, locales, setRequestLocale } from "@/lib/i18n";
+import { defaultTimezone, isLocale, locales, setRequestLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: {
@@ -43,7 +43,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${GeistMono.variable} ${GeistSans.variable} flex flex-col`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages} timeZone={defaultTimezone}>
           <Providers>
             <Navigation links={links} />
             <main className="container flex-1">

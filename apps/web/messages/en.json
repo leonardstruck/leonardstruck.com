@@ -5,5 +5,8 @@
       "description": "I apologize for the inconvenience. The page you are trying to access does not exist or has been moved.",
       "go_back": "Return home"
     }
+  },
+  "navigation": {
+    "home": "Home"
   }
 }
