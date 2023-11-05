@@ -3,8 +3,7 @@ import env from "@/lib/env";
 import { getHomepage, getPages } from "@/data/pages";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const schema = env.NODE_ENV === "production" ? "https" : "http";
-    const baseUrl = `${schema}://${env.BASE_URL}`;
+    const baseUrl = env.BASE_URL;
 
     const pages = await getPages();
     const homepage = await getHomepage();
