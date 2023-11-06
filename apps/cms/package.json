@@ -39,5 +39,6 @@
     "ts-node": "^10.9.1",
     "ts-to-zod": "^3.2.0",
     "typescript": "^5.2.2"
-  }
+  },
+  "packageManager": "pnpm@8.6.10"
 }
