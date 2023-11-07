@@ -22,7 +22,7 @@ const start = async () => {
   // Add your own express routes here
   // health check
   app.get('/health', (_, res) => {
-    res.send('OK')
+    res.status(200).send('OK')
   })
 
   app.listen(3001)
