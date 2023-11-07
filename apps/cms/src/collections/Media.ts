@@ -6,7 +6,7 @@ const Media: CollectionConfig = {
     slug,
     upload: {
         mimeTypes: ["image/*"],
-        staticDir: "uploads/media",
+        staticDir: "../uploads/media",
         imageSizes: [
             {
                 name: "large",
