@@ -7,3 +7,5 @@ node_modules
 
 src/payload-types.ts
 src/payload-zod-schema.ts
+
+uploads

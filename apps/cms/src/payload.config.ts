@@ -3,8 +3,6 @@ import path from 'path'
 import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
-import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
-import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
 import { buildConfig } from 'payload/config'
 
 import editor from './editor'
@@ -52,24 +50,6 @@ export default buildConfig({
   },
   plugins: [
     payloadCloud(),
-    cloudStorage({
-      collections: {
-        "media": {
-          adapter: s3Adapter({
-            config: {
-              credentials: {
-                accessKeyId: process.env.PAYLOAD_S3_ACCESS_KEY_ID,
-                secretAccessKey: process.env.PAYLOAD_S3_SECRET_ACCESS_KEY,
-              },
-              endpoint: process.env.PAYLOAD_S3_ENDPOINT,
-              region: process.env.PAYLOAD_S3_REGION,
-              forcePathStyle: process.env.PAYLOAD_S3_FORCE_PATH_STYLE === "true",
-            },
-            bucket: process.env.PAYLOAD_S3_BUCKET
-          })
-        }
-      }
-    })
   ],
   db: postgresAdapter({
     pool: {
