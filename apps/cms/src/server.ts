@@ -20,6 +20,10 @@ const start = async () => {
   })
 
   // Add your own express routes here
+  // health check
+  app.get('/health', (_, res) => {
+    res.send('OK')
+  })
 
   app.listen(3001)
 }
