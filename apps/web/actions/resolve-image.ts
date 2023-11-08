@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { mediaSchema } from "cms/src/payload-zod-schema";
 import type { Media } from "cms/src/payload-types";
+import cache from "cms/src/cache";
 import { publicAction } from "@/lib/safe-action";
 import payload, { getAdminAuthHeaders } from "@/lib/payload";
 
@@ -17,7 +18,10 @@ const resolveImage = publicAction(schema, async (input) => {
         // fetch media object
         const image = await payload<Media>({
             endpoint: `/media/${input}`,
-            headers: getAdminAuthHeaders()
+            headers: getAdminAuthHeaders(),
+            next: {
+                tags: [cache.collection.media.generateCacheKeyFromId(input)]
+            }
         });
 
         return image;

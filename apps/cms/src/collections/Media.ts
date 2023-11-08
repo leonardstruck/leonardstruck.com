@@ -1,4 +1,5 @@
 import { CollectionConfig } from "payload/types";
+import { revalidateMedia } from "../hooks/revalidate/revalidateMedia";
 
 export const slug = "media";
 
@@ -36,7 +37,15 @@ const Media: CollectionConfig = {
     },
     fields: [
         { name: "alt", type: "text", localized: true }
-    ]
+    ],
+    hooks: {
+        afterChange: [
+            revalidateMedia
+        ],
+        afterDelete: [
+            revalidateMedia
+        ]
+    }
 }
 
 export default Media;
