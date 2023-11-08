@@ -1,16 +1,18 @@
-import type { BlockNode } from "./nodes/block";
-import type { HeadingNode } from "./nodes/heading";
-import type { ParagraphNode } from "./nodes/paragraph";
-import type { RootNode } from "./nodes/root";
-import type { TextNode } from "./nodes/text";
+import type { QueryClient } from "@tanstack/react-query";
 
-export type Node = RootNode | ParagraphNode | TextNode | HeadingNode | BlockNode;
+export type NodeType = string;
 
 export interface BaseNode {
-    type: string;
+    type: NodeType;
+    key?: React.Key;
     [key: string]: unknown
 }
 
 export interface NodeWithChildren extends BaseNode {
-    children: Node[];
+    children: BaseNode[];
+}
+
+export interface NodeInterface<TProps extends BaseNode> {
+    render: (props: TProps, key?: React.Key) => React.ReactNode;
+    prefetch?: (props: TProps, queryClient: QueryClient) => Promise<void>;
 }
