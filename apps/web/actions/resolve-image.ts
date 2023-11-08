@@ -24,6 +24,23 @@ const resolveImage = publicAction(schema, async (input) => {
             }
         });
 
+        // append timestamp to image url to bust cache
+        if (image.url) {
+            image.url += `?t=${Date.now()}`;
+        }
+
+        if (image.sizes?.large?.url) {
+            image.sizes.large.url += `?t=${Date.now()}`;
+        }
+
+        if (image.sizes?.medium?.url) {
+            image.sizes.medium.url += `?t=${Date.now()}`;
+        }
+
+        if (image.sizes?.small?.url) {
+            image.sizes.small.url += `?t=${Date.now()}`;
+        }
+
         return image;
     }
 
