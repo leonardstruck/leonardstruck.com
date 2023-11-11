@@ -15,8 +15,7 @@ const HeroWithImage: Block = {
         {
             type: "text",
             name: "title",
-            required: true,
-            localized: true
+            required: true
         }
     ]
 }

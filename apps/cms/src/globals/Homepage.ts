@@ -8,7 +8,7 @@ const Homepage: GlobalConfig = {
     slug,
     admin: {
         livePreview: {
-            url: ({ locale }) => `${process.env.PAYLOAD_PUBLIC_LIVE_PREVIEW_URL || "http://localhost:3000"}/${locale}/preview/homepage`
+            url: () => `${process.env.PAYLOAD_PUBLIC_LIVE_PREVIEW_URL || "http://localhost:3000"}/preview/homepage`
         }
     },
     versions: {
@@ -17,6 +17,9 @@ const Homepage: GlobalConfig = {
     fields: Pages.fields.filter((field) => {
         if ("name" in field) {
             if (field.name == "slug") {
+                return false;
+            }
+            if (field.name == "title") {
                 return false;
             }
         }

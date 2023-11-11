@@ -5,12 +5,6 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 await payload.db.drizzle.execute(sql`
 
 DO $$ BEGIN
- CREATE TYPE "_locales" AS ENUM('en', 'de');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
  CREATE TYPE "enum_pages_status" AS ENUM('draft', 'published');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -64,39 +58,25 @@ CREATE TABLE IF NOT EXISTS "users" (
 
 CREATE TABLE IF NOT EXISTS "pages" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"title" varchar,
+	"slug" varchar,
+	"content" jsonb,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"_status" "enum_pages_status"
 );
 
-CREATE TABLE IF NOT EXISTS "pages_locales" (
-	"title" varchar,
-	"slug" varchar,
-	"content" jsonb,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" integer NOT NULL,
-	CONSTRAINT "pages_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
-);
-
 CREATE TABLE IF NOT EXISTS "_pages_v" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"version_title" varchar,
+	"version_slug" varchar,
+	"version_content" jsonb,
 	"version_updated_at" timestamp(3) with time zone,
 	"version_created_at" timestamp(3) with time zone,
 	"version__status" "enum__pages_v_version_status",
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"latest" boolean
-);
-
-CREATE TABLE IF NOT EXISTS "_pages_v_locales" (
-	"version_title" varchar,
-	"version_slug" varchar,
-	"version_content" jsonb,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" integer NOT NULL,
-	CONSTRAINT "_pages_v_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
 );
 
 CREATE TABLE IF NOT EXISTS "_pages_v_rels" (
@@ -109,6 +89,7 @@ CREATE TABLE IF NOT EXISTS "_pages_v_rels" (
 
 CREATE TABLE IF NOT EXISTS "media" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"alt" varchar,
 	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
 	"url" varchar,
@@ -135,14 +116,6 @@ CREATE TABLE IF NOT EXISTS "media" (
 	"sizes_small_mime_type" varchar,
 	"sizes_small_filesize" numeric,
 	"sizes_small_filename" varchar
-);
-
-CREATE TABLE IF NOT EXISTS "media_locales" (
-	"alt" varchar,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" integer NOT NULL,
-	CONSTRAINT "media_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
 );
 
 CREATE TABLE IF NOT EXISTS "payload_preferences" (
@@ -173,16 +146,9 @@ CREATE TABLE IF NOT EXISTS "navigation_links" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
 	"id" varchar PRIMARY KEY NOT NULL,
+	"link_label" varchar NOT NULL,
 	"link_type" "enum_navigation_links_link_type",
 	"link_external" varchar
-);
-
-CREATE TABLE IF NOT EXISTS "navigation_links_locales" (
-	"link_label" varchar NOT NULL,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" varchar NOT NULL,
-	CONSTRAINT "navigation_links_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
 );
 
 CREATE TABLE IF NOT EXISTS "navigation" (
@@ -201,22 +167,15 @@ CREATE TABLE IF NOT EXISTS "navigation_rels" (
 
 CREATE TABLE IF NOT EXISTS "homepage" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"content" jsonb,
 	"_status" "enum_homepage_status",
 	"updated_at" timestamp(3) with time zone,
 	"created_at" timestamp(3) with time zone
 );
 
-CREATE TABLE IF NOT EXISTS "homepage_locales" (
-	"title" varchar,
-	"content" jsonb,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" integer NOT NULL,
-	CONSTRAINT "homepage_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
-);
-
 CREATE TABLE IF NOT EXISTS "_homepage_v" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"version_content" jsonb,
 	"version__status" "enum__homepage_v_version_status",
 	"version_updated_at" timestamp(3) with time zone,
 	"version_created_at" timestamp(3) with time zone,
@@ -225,29 +184,13 @@ CREATE TABLE IF NOT EXISTS "_homepage_v" (
 	"latest" boolean
 );
 
-CREATE TABLE IF NOT EXISTS "_homepage_v_locales" (
-	"version_title" varchar,
-	"version_content" jsonb,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" integer NOT NULL,
-	CONSTRAINT "_homepage_v_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
-);
-
 CREATE TABLE IF NOT EXISTS "footer_links" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
 	"id" varchar PRIMARY KEY NOT NULL,
+	"link_label" varchar NOT NULL,
 	"link_type" "enum_footer_links_link_type",
 	"link_external" varchar
-);
-
-CREATE TABLE IF NOT EXISTS "footer_links_locales" (
-	"link_label" varchar NOT NULL,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" varchar NOT NULL,
-	CONSTRAINT "footer_links_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
 );
 
 CREATE TABLE IF NOT EXISTS "footer" (
@@ -269,15 +212,8 @@ CREATE TABLE IF NOT EXISTS "blocks_blocks_hero_with_image" (
 	"_parent_id" integer NOT NULL,
 	"_path" text NOT NULL,
 	"id" varchar PRIMARY KEY NOT NULL,
-	"block_name" varchar
-);
-
-CREATE TABLE IF NOT EXISTS "blocks_blocks_hero_with_image_locales" (
 	"title" varchar NOT NULL,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" varchar NOT NULL,
-	CONSTRAINT "blocks_blocks_hero_with_image_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
+	"block_name" varchar
 );
 
 CREATE TABLE IF NOT EXISTS "blocks_blocks_two_col_layout" (
@@ -285,16 +221,9 @@ CREATE TABLE IF NOT EXISTS "blocks_blocks_two_col_layout" (
 	"_parent_id" integer NOT NULL,
 	"_path" text NOT NULL,
 	"id" varchar PRIMARY KEY NOT NULL,
-	"block_name" varchar
-);
-
-CREATE TABLE IF NOT EXISTS "blocks_blocks_two_col_layout_locales" (
 	"left_col" jsonb,
 	"right_col" jsonb,
-	"id" serial PRIMARY KEY NOT NULL,
-	"_locale" "_locales" NOT NULL,
-	"_parent_id" varchar NOT NULL,
-	CONSTRAINT "blocks_blocks_two_col_layout_locales_locale_parent_id_unique" UNIQUE("_locale","_parent_id")
+	"block_name" varchar
 );
 
 CREATE TABLE IF NOT EXISTS "blocks" (
@@ -313,12 +242,12 @@ CREATE TABLE IF NOT EXISTS "blocks_rels" (
 
 CREATE INDEX IF NOT EXISTS "created_at_idx" ON "users" ("created_at");
 CREATE UNIQUE INDEX IF NOT EXISTS "email_idx" ON "users" ("email");
+CREATE UNIQUE INDEX IF NOT EXISTS "slug_idx" ON "pages" ("slug");
 CREATE INDEX IF NOT EXISTS "created_at_idx" ON "pages" ("created_at");
-CREATE UNIQUE INDEX IF NOT EXISTS "slug_idx" ON "pages_locales" ("slug");
+CREATE INDEX IF NOT EXISTS "version_slug_idx" ON "_pages_v" ("version_slug");
 CREATE INDEX IF NOT EXISTS "created_at_idx" ON "_pages_v" ("created_at");
 CREATE INDEX IF NOT EXISTS "updated_at_idx" ON "_pages_v" ("updated_at");
 CREATE INDEX IF NOT EXISTS "latest_idx" ON "_pages_v" ("latest");
-CREATE INDEX IF NOT EXISTS "version_slug_idx" ON "_pages_v_locales" ("version_slug");
 CREATE INDEX IF NOT EXISTS "order_idx" ON "_pages_v_rels" ("order");
 CREATE INDEX IF NOT EXISTS "parent_idx" ON "_pages_v_rels" ("parent_id");
 CREATE INDEX IF NOT EXISTS "path_idx" ON "_pages_v_rels" ("path");
@@ -350,18 +279,6 @@ CREATE INDEX IF NOT EXISTS "order_idx" ON "blocks_rels" ("order");
 CREATE INDEX IF NOT EXISTS "parent_idx" ON "blocks_rels" ("parent_id");
 CREATE INDEX IF NOT EXISTS "path_idx" ON "blocks_rels" ("path");
 DO $$ BEGIN
- ALTER TABLE "pages_locales" ADD CONSTRAINT "pages_locales__parent_id_pages_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
- ALTER TABLE "_pages_v_locales" ADD CONSTRAINT "_pages_v_locales__parent_id__pages_v_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "_pages_v"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
  ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_parent_id__pages_v_id_fk" FOREIGN KEY ("parent_id") REFERENCES "_pages_v"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -369,12 +286,6 @@ END $$;
 
 DO $$ BEGIN
  ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_pages_id_pages_id_fk" FOREIGN KEY ("pages_id") REFERENCES "pages"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
- ALTER TABLE "media_locales" ADD CONSTRAINT "media_locales__parent_id_media_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "media"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -398,12 +309,6 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "navigation_links_locales" ADD CONSTRAINT "navigation_links_locales__parent_id_navigation_links_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "navigation_links"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
  ALTER TABLE "navigation_rels" ADD CONSTRAINT "navigation_rels_parent_id_navigation_id_fk" FOREIGN KEY ("parent_id") REFERENCES "navigation"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -416,25 +321,7 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "homepage_locales" ADD CONSTRAINT "homepage_locales__parent_id_homepage_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "homepage"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
- ALTER TABLE "_homepage_v_locales" ADD CONSTRAINT "_homepage_v_locales__parent_id__homepage_v_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "_homepage_v"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
  ALTER TABLE "footer_links" ADD CONSTRAINT "footer_links__parent_id_footer_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "footer"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
- ALTER TABLE "footer_links_locales" ADD CONSTRAINT "footer_links_locales__parent_id_footer_links_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "footer_links"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -458,19 +345,7 @@ EXCEPTION
 END $$;
 
 DO $$ BEGIN
- ALTER TABLE "blocks_blocks_hero_with_image_locales" ADD CONSTRAINT "blocks_blocks_hero_with_image_locales__parent_id_blocks_blocks_hero_with_image_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blocks_blocks_hero_with_image"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
  ALTER TABLE "blocks_blocks_two_col_layout" ADD CONSTRAINT "blocks_blocks_two_col_layout__parent_id_blocks_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blocks"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
-DO $$ BEGIN
- ALTER TABLE "blocks_blocks_two_col_layout_locales" ADD CONSTRAINT "blocks_blocks_two_col_layout_locales__parent_id_blocks_blocks_two_col_layout_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "blocks_blocks_two_col_layout"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -495,31 +370,22 @@ await payload.db.drizzle.execute(sql`
 
 DROP TABLE "users";
 DROP TABLE "pages";
-DROP TABLE "pages_locales";
 DROP TABLE "_pages_v";
-DROP TABLE "_pages_v_locales";
 DROP TABLE "_pages_v_rels";
 DROP TABLE "media";
-DROP TABLE "media_locales";
 DROP TABLE "payload_preferences";
 DROP TABLE "payload_preferences_rels";
 DROP TABLE "payload_migrations";
 DROP TABLE "navigation_links";
-DROP TABLE "navigation_links_locales";
 DROP TABLE "navigation";
 DROP TABLE "navigation_rels";
 DROP TABLE "homepage";
-DROP TABLE "homepage_locales";
 DROP TABLE "_homepage_v";
-DROP TABLE "_homepage_v_locales";
 DROP TABLE "footer_links";
-DROP TABLE "footer_links_locales";
 DROP TABLE "footer";
 DROP TABLE "footer_rels";
 DROP TABLE "blocks_blocks_hero_with_image";
-DROP TABLE "blocks_blocks_hero_with_image_locales";
 DROP TABLE "blocks_blocks_two_col_layout";
-DROP TABLE "blocks_blocks_two_col_layout_locales";
 DROP TABLE "blocks";
 DROP TABLE "blocks_rels";`);
 

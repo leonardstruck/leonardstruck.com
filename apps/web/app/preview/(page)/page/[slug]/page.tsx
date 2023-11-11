@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { isLocale, setRequestLocale } from "@/lib/i18n";
 import env from "@/lib/env";
 import { getPageBySlug } from "@/data/pages";
 import Preview from "../../preview";
@@ -7,16 +6,16 @@ import Preview from "../../preview";
 
 interface PageParams {
     slug: string;
-    locale: string;
 }
 interface PageProps {
     params: PageParams
 };
 
-export default async function Page({ params: { slug, locale } }: PageProps): Promise<JSX.Element> {
-    if (!isLocale(locale)) notFound();
-    setRequestLocale(locale);
+export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
+    const page = await getPageBySlug(slug, true);
+    if (!page) {
+        notFound();
+    }
 
-    const page = await getPageBySlug(slug, locale, true);
     return <Preview page={page} serverURL={env.PAYLOAD_URL} />
 }

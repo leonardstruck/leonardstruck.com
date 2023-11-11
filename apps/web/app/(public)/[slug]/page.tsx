@@ -2,23 +2,18 @@ import { notFound } from "next/navigation";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getPageBySlug, getPages } from "@/data/pages";
 import RichTextRenderer from "@/renderers/rich-text";
-import { isLocale, setRequestLocale } from "@/lib/i18n";
 import type { BaseNode } from "@/renderers/rich-text/types";
 
 interface PageParams {
   slug: string;
-  locale: string;
 }
 
 interface PageProps {
   params: PageParams;
 };
 
-export default async function Page({ params: { slug, locale } }: PageProps): Promise<JSX.Element> {
-  if (!isLocale(locale)) notFound();
-  setRequestLocale(locale);
-
-  const page = await getPageBySlug(slug, locale);
+export default async function Page({ params: { slug } }: PageProps): Promise<JSX.Element> {
+  const page = await getPageBySlug(slug);
   if (!page) {
     notFound();
   }
@@ -35,15 +30,7 @@ export default async function Page({ params: { slug, locale } }: PageProps): Pro
   )
 }
 
-interface IncomingParams {
-  params: {
-    locale: string
-  }
-}
-
-export async function generateStaticParams({ params: { locale } }: IncomingParams): Promise<PageParams[]> {
-  if (!isLocale(locale)) return notFound();
-
-  const pages = await getPages(locale);
-  return pages.map(({ slug }) => ({ slug, locale }));
+export async function generateStaticParams(): Promise<PageParams[]> {
+  const pages = await getPages();
+  return pages.map(({ slug }) => ({ slug }));
 } 

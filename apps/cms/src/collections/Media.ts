@@ -36,7 +36,7 @@ const Media: CollectionConfig = {
         read: () => true,
     },
     fields: [
-        { name: "alt", type: "text", localized: true }
+        { name: "alt", type: "text" }
     ],
     hooks: {
         afterChange: [

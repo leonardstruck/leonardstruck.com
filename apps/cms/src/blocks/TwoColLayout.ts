@@ -12,7 +12,6 @@ const TwoColLayout: Block = {
                 {
                     type: "richText",
                     name: "leftCol",
-                    localized: true,
                     label: "Left Column",
                     admin: {
                         width: "60%"
@@ -21,7 +20,6 @@ const TwoColLayout: Block = {
                 {
                     type: "richText",
                     name: "rightCol",
-                    localized: true,
                     label: "Right Column",
                     admin: {
                         width: "40%"
