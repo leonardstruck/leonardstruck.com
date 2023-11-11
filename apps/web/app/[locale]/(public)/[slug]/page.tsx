@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getPageBySlug, getPages } from "@/data/pages";
-import PageRenderer from "@/renderers/page/page-renderer";
+import RichTextRenderer from "@/renderers/rich-text";
 import { isLocale, setRequestLocale } from "@/lib/i18n";
+import type { BaseNode } from "@/renderers/rich-text/types";
 
 interface PageParams {
   slug: string;
@@ -21,7 +23,16 @@ export default async function Page({ params: { slug, locale } }: PageProps): Pro
     notFound();
   }
 
-  return <PageRenderer page={page} />;
+  const content = page.content as unknown as { root: BaseNode };
+  const queryClient = new QueryClient();
+
+  await RichTextRenderer.prefetchNode("root", content.root, queryClient);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {RichTextRenderer.renderNode("root", content.root)}
+    </HydrationBoundary>
+  )
 }
 
 interface IncomingParams {

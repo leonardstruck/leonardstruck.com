@@ -1,23 +1,21 @@
 import Prose from "@/components/prose";
 import useIndexedId from "@/lib/indexed-id";
-import type { NodeWithChildren } from "../types";
-import RichTextRenderer from "../rich-text-renderer";
+import type { NodeInterface, NodeWithChildren } from "../types";
+import RichTextRenderer from "..";
 
-export interface ParagraphNode extends NodeWithChildren {
-    type: "paragraph";
-}
-
-interface ParagraphNodeProps {
-    node: ParagraphNode;
-}
-
-export default function Paragraph({ node }: ParagraphNodeProps): React.ReactNode {
+function Component(node: NodeWithChildren): React.ReactNode {
     const id = useIndexedId();
     return (
         <Prose>
             <p>
-                {node.children.map((child, index) => <RichTextRenderer key={id(index)} node={child} />)}
+                {node.children.map((child, i) => RichTextRenderer.renderNode(child.type, child, id(i)))}
             </p>
         </Prose>
     )
 }
+
+const ParagraphNode: NodeInterface<NodeWithChildren> = {
+    render: (props, key) => <Component {...props} key={key} />
+}
+
+export default ParagraphNode;

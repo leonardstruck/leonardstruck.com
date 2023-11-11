@@ -1,14 +1,15 @@
-import type { BaseNode } from "../types";
+import type { BaseNode, NodeInterface } from "../types";
 
-export interface TextNode extends BaseNode {
-    type: "text";
+interface TextNode extends BaseNode {
     text: string;
 }
 
-interface TextNodeProps {
-    node: TextNode;
-}
-
-export default function Text({ node }: TextNodeProps): React.ReactNode {
+function Component(node: TextNode): React.ReactNode {
     return node.text;
 }
+
+const TextNode: NodeInterface<TextNode> = {
+    render: (props, key) => <Component {...props} key={key} />,
+}
+
+export default TextNode;

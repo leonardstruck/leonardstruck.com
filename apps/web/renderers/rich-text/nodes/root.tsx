@@ -1,20 +1,20 @@
 import useIndexedId from "@/lib/indexed-id";
-import type { NodeWithChildren } from "../types";
-import RichTextRenderer from "../rich-text-renderer";
+import type { NodeInterface, NodeWithChildren } from "../types";
+import RichTextRenderer from "..";
 
-export interface RootNode extends NodeWithChildren {
-    type: "root";
-}
-
-interface RootNodeProps {
-    node: RootNode;
-}
-
-export default function Root({ node }: RootNodeProps): React.ReactNode {
+function Component(node: NodeWithChildren): React.ReactNode {
     const id = useIndexedId();
     return (
         <div className="space-y-5">
-            {node.children.map((child, index) => <RichTextRenderer key={id(index)} node={child} />)}
+            {
+                node.children.map((child, i) => RichTextRenderer.renderNode(child.type, child, id(i)))
+            }
         </div>
     )
 }
+
+const RootNode: NodeInterface<NodeWithChildren> = {
+    render: (props, key) => <Component {...props} key={key} />
+}
+
+export default RootNode;
