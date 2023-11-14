@@ -24,31 +24,12 @@ const resolveImage = publicAction(schema, async (input) => {
             }
         });
 
-        return appendTimestamp(image);
+        return image;
     }
 
-    return appendTimestamp(input);
+    // use media object
+    return input;
 });
-
-const appendTimestamp = (image: Media): Media => {
-    if (image.url) {
-        image.url += `?t=${Date.now()}`;
-    }
-
-    if (image.sizes?.large?.url) {
-        image.sizes.large.url += `?t=${Date.now()}`;
-    }
-
-    if (image.sizes?.medium?.url) {
-        image.sizes.medium.url += `?t=${Date.now()}`;
-    }
-
-    if (image.sizes?.small?.url) {
-        image.sizes.small.url += `?t=${Date.now()}`;
-    }
-
-    return image;
-}
 
 
 export default resolveImage;
