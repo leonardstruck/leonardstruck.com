@@ -157,6 +157,9 @@ importers:
       cms:
         specifier: workspace:*
         version: link:../cms
+      dotenv:
+        specifier: latest
+        version: 16.3.1
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
