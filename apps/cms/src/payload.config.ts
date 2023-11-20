@@ -14,6 +14,7 @@ import Homepage from './globals/Homepage'
 import Footer from './globals/Footer'
 import Media from './collections/Media'
 import Blocks from './globals/Blocks'
+import Posts from './collections/Posts'
 
 const revalidatePath = path.resolve(__dirname, 'lib/revalidate')
 const mockModulePath = path.resolve(__dirname, 'lib/mock')
@@ -35,7 +36,7 @@ export default buildConfig({
     }),
   },
   editor,
-  collections: [Users, Pages, Media],
+  collections: [Users, Pages, Media, Posts],
   globals: [Navigation, Homepage, Footer, Blocks],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

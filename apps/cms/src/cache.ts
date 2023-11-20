@@ -6,6 +6,11 @@ const cache = {
         },
         media: {
             generateCacheKeyFromId: (id: number) => `media-${id}`,
+        },
+        post: {
+            generateCacheKeyFromId: (id: number) => `post-${id}`,
+            generateCacheKeyFromSlug: (slug: string) => `post-${slug}`,
+            allPosts: "post-all-posts",
         }
     },
     global: {
