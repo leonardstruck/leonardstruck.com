@@ -1,5 +1,5 @@
 import { HeroWithImage } from "ui";
-import profile from "@/assets/portrait.jpg";
+import profile from "@/assets/portrait.webp";
 import { GithubCircle, Linkedin } from "iconoir-react";
 
 export default function Home() {
